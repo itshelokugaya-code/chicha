@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHICHA — Digital Marketing Agency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Syne+Mono&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --acid: #CCFF00;
+    --black: #0A0A0A;
+    --white: #F5F5F0;
+    --grey: #1A1A1A;
+    --grey2: #2A2A2A;
+    --grey3: #555;
+    --text-muted: #888;
+    --border: rgba(255,255,255,0.08);
+    --font-display: 'Syne', sans-serif;
+    --font-mono: 'Syne Mono', monospace;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--acid);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, opacity 0.2s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--acid);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.12s ease;
+    opacity: 0.5;
+  }
+  .cursor-ring.expand { width: 60px; height: 60px; opacity: 0.3; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: -0.5px;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--acid); }
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--acid); }
+  .nav-cta {
+    background: var(--acid);
+    color: var(--black);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 10px 22px;
+    border: none;
+    cursor: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: #d9ff1a; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 48px 80px;
+    position: relative;
+    overflow: hidden;
+    padding-top: 100px;
+  }
+  .hero-bg-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(204,255,0,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(204,255,0,0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    z-index: 0;
+  }
+  .hero-bg-noise {
+    position: absolute; inset: 0; z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.4;
+  }
+  .hero-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--acid);
+    margin-bottom: 28px;
+    position: relative; z-index: 2;
+    opacity: 0; animation: fadeUp 0.6s ease 0.2s forwards;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(64px, 9vw, 148px);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    position: relative; z-index: 2;
+    opacity: 0; animation: fadeUp 0.7s ease 0.35s forwards;
+    max-width: 1000px;
+  }
+  .hero h1 .outline {
+    -webkit-text-stroke: 1.5px var(--white);
+    color: transparent;
+  }
+  .hero h1 .acid { color: var(--acid); }
+  .hero-bottom {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-top: 60px;
+    position: relative; z-index: 2;
+    opacity: 0; animation: fadeUp 0.7s ease 0.55s forwards;
+  }
+  .hero-desc {
+    max-width: 380px;
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .hero-stats {
+    display: flex; gap: 48px;
+  }
+  .hero-stat-val {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 42px;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    line-height: 1;
+  }
+  .hero-stat-val span { color: var(--acid); }
+  .hero-stat-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0; animation: fadeIn 0.8s ease 1s forwards;
+  }
+  .hero-scroll span {
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey3);
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--acid), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  /* MARQUEE */
+  .marquee-section {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+    overflow: hidden;
+    background: var(--grey);
+  }
+  .marquee-track {
+    display: flex; gap: 64px;
+    animation: marquee 22s linear infinite;
+    width: max-content;
+  }
+  .marquee-item {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+    display: flex; align-items: center; gap: 64px;
+  }
+  .marquee-item::after {
+    content: '✦';
+    color: var(--acid);
+    font-size: 10px;
+  }
+
+  /* SECTION BASE */
+  section { padding: 120px 48px; }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--acid);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--acid);
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(38px, 5vw, 72px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    margin-bottom: 64px;
+  }
+  .section-title .outline {
+    -webkit-text-stroke: 1px var(--white);
+    color: transparent;
+  }
+
+  /* PROCESS */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .process-card {
+    background: var(--black);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .process-card:hover { background: var(--grey); }
+  .process-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--acid);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .process-card:hover::before { transform: scaleX(1); }
+  .process-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--acid);
+    letter-spacing: 0.1em;
+    margin-bottom: 28px;
+  }
+  .process-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    line-height: 1.1;
+  }
+  .process-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+  .process-list {
+    list-style: none;
+  }
+  .process-list li {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--grey3);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.04em;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .process-list li:last-child { border-bottom: none; }
+  .process-list li::before {
+    content: '→';
+    color: var(--acid);
+    font-size: 10px;
+  }
+
+  /* CASES */
+  .cases-section { background: var(--grey); }
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .case-card {
+    background: var(--black);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .case-card:hover {
+    border-color: var(--acid);
+    transform: translateY(-4px);
+  }
+  .case-illustration {
+    height: 240px;
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  /* SVG numeric illustrations per card */
+  .case-body { padding: 32px; }
+  .case-tag {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--acid);
+    background: rgba(204,255,0,0.08);
+    padding: 4px 10px;
+    display: inline-block;
+    margin-bottom: 16px;
+  }
+  .case-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    line-height: 1.1;
+  }
+  .case-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .case-metric-val {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 28px;
+    letter-spacing: -0.03em;
+    color: var(--acid);
+    line-height: 1;
+  }
+  .case-metric-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .case-spend {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--grey3);
+    letter-spacing: 0.08em;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* SERVICES */
+  .services-grid {
+    display: flex; flex-wrap: wrap; gap: 12px;
+  }
+  .service-chip {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    padding: 14px 24px;
+    border: 1px solid var(--border);
+    color: var(--white);
+    transition: all 0.2s;
+    cursor: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-chip::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--acid);
+    transform: scaleY(0); transform-origin: bottom;
+    transition: transform 0.25s ease;
+    z-index: -1;
+  }
+  .service-chip:hover {
+    color: var(--black);
+    border-color: var(--acid);
+  }
+  .service-chip:hover::before { transform: scaleY(1); }
+  .service-chip.large {
+    font-size: 22px;
+    padding: 18px 32px;
+  }
+  .service-chip.xl {
+    font-size: 32px; font-weight: 800;
+    padding: 22px 40px;
+  }
+
+  /* TRUSTED */
+  .trusted-section {
+    background: var(--black);
+    border-top: 1px solid var(--border);
+  }
+  .trusted-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 0;
+  }
+  .trusted-item {
+    background: var(--black);
+    padding: 40px 24px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .trusted-item:hover { background: var(--grey); }
+  .trusted-logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--grey3);
+    transition: color 0.2s;
+    text-align: center;
+  }
+  .trusted-item:hover .trusted-logo { color: var(--acid); }
+  .trusted-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    margin-bottom: 64px;
+  }
+  .trusted-text {
+    font-size: 18px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 440px;
+  }
+  .trusted-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(204,255,0,0.06);
+    border: 1px solid rgba(204,255,0,0.2);
+    padding: 8px 16px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--acid);
+    margin-bottom: 20px;
+  }
+  .trusted-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--acid);
+    border-radius: 50%;
+    animation: blink 2s ease infinite;
+  }
+
+  /* CTA */
+  .cta-section {
+    background: var(--acid);
+    padding: 100px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  .cta-left h2 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(44px, 6vw, 96px);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    color: var(--black);
+  }
+  .cta-left h2 .outline {
+    -webkit-text-stroke: 2px var(--black);
+    color: transparent;
+  }
+  .cta-right {
+    flex-shrink: 0;
+    display: flex; flex-direction: column; gap: 20px; align-items: flex-start;
+  }
+  .cta-desc {
+    font-size: 16px;
+    color: rgba(0,0,0,0.6);
+    max-width: 320px;
+    line-height: 1.6;
+  }
+  .btn-primary {
+    background: var(--black);
+    color: var(--acid);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 18px 40px;
+    border: none;
+    cursor: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover {
+    background: #0f0f0f;
+    transform: translateY(-2px);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--grey);
+    padding: 60px 48px 40px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 60px;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-weight: 800; font-size: 48px;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .footer-logo span { color: var(--acid); }
+  .footer-tagline {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--grey3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+  .footer-links {
+    display: flex; gap: 80px;
+  }
+  .footer-col h4 {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grey3);
+    margin-bottom: 20px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li {
+    margin-bottom: 10px;
+  }
+  .footer-col a {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--acid); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-copy {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--grey3);
+    letter-spacing: 0.08em;
+  }
+  .footer-email {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-email:hover { color: var(--acid); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+    50% { opacity: 0.4; transform: scaleY(0.6); transform-origin: top; }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* REVEAL ON SCROLL */
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1; transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ACCENT LINE */
+  .accent-line {
+    width: 64px; height: 3px;
+    background: var(--acid);
+    margin-bottom: 32px;
+  }
+
+  /* NUMBER BIG BG */
+  .big-number {
+    position: absolute;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 160px;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    color: rgba(204,255,0,0.06);
+    z-index: 0;
+    right: -10px; bottom: -20px;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 80px 24px; }
+    .hero { padding: 120px 24px 80px; }
+    .hero h1 { font-size: 52px; }
+    .hero-bottom { flex-direction: column; gap: 40px; align-items: flex-start; }
+    .process-grid { grid-template-columns: 1fr; }
+    .cases-grid { grid-template-columns: 1fr; }
+    .trusted-grid { grid-template-columns: repeat(3, 1fr); }
+    .cta-section { flex-direction: column; }
+    .trusted-intro { grid-template-columns: 1fr; gap: 32px; }
+    .footer-top { flex-direction: column; gap: 40px; }
+    .footer-links { flex-direction: column; gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">CHI<span>.</span>CHA</a>
+  <ul class="nav-links">
+    <li><a href="#process">Process</a></li>
+    <li><a href="#cases">Cases</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <button class="nav-cta">Get in touch</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-bg-noise"></div>
+  <div class="hero-tag">Digital Marketing Agency — Est. 2014</div>
+  <h1>
+    We <span class="outline">Scale</span><br>
+    Brands<br>
+    <span class="acid">Radically</span>
+  </h1>
+  <div class="hero-bottom">
+    <p class="hero-desc">Performance-driven digital marketing. We build growth systems that deliver real results — not vanity metrics. From paid media to full-funnel strategy.</p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-val">10<span>YRS</span></div>
+        <div class="hero-stat-label">On the market</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">120<span>%</span></div>
+        <div class="hero-stat-label">Avg. ROI</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">700<span>K+</span></div>
+        <div class="hero-stat-label">Leads generated</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marqueeTrack">
+    <div class="marquee-item">Performance Marketing</div>
+    <div class="marquee-item">SEO & Content</div>
+    <div class="marquee-item">Paid Advertising</div>
+    <div class="marquee-item">Social Media</div>
+    <div class="marquee-item">Analytics & CRO</div>
+    <div class="marquee-item">Lead Generation</div>
+    <div class="marquee-item">E-Commerce Growth</div>
+    <div class="marquee-item">iGaming Marketing</div>
+    <div class="marquee-item">Crypto & Finance</div>
+    <div class="marquee-item">Performance Marketing</div>
+    <div class="marquee-item">SEO & Content</div>
+    <div class="marquee-item">Paid Advertising</div>
+    <div class="marquee-item">Social Media</div>
+    <div class="marquee-item">Analytics & CRO</div>
+    <div class="marquee-item">Lead Generation</div>
+    <div class="marquee-item">E-Commerce Growth</div>
+    <div class="marquee-item">iGaming Marketing</div>
+    <div class="marquee-item">Crypto & Finance</div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-label reveal">How We Work</div>
+  <h2 class="section-title reveal">Our<br><span class="outline">Process</span></h2>
+  <div class="process-grid">
+    <div class="process-card reveal reveal-delay-1">
+      <div class="process-num">01 / DISCOVER</div>
+      <h3 class="process-title">Research &<br>Strategy</h3>
+      <p class="process-desc">We gather all data, study competitors, and apply tools to build a winning strategy.</p>
+      <ul class="process-list">
+        <li>Collect business goals & insights</li>
+        <li>Analyze competitors & market trends</li>
+        <li>Develop a strategic roadmap</li>
+      </ul>
+      <div class="big-number">01</div>
+    </div>
+    <div class="process-card reveal reveal-delay-2">
+      <div class="process-num">02 / EXECUTE</div>
+      <h3 class="process-title">High-Impact<br>Advertising</h3>
+      <p class="process-desc">We create strong ads, launch campaigns, and ensure high engagement rates.</p>
+      <ul class="process-list">
+        <li>Creative development (visuals & copy)</li>
+        <li>Advanced tech setup & tracking</li>
+        <li>Multi-channel campaign execution</li>
+      </ul>
+      <div class="big-number">02</div>
+    </div>
+    <div class="process-card reveal reveal-delay-3">
+      <div class="process-num">03 / OPTIMIZE</div>
+      <h3 class="process-title">Analytics &<br>Optimization</h3>
+      <p class="process-desc">We continuously track performance, refine strategies, and maximize your ROI.</p>
+      <ul class="process-list">
+        <li>Data-driven reporting</li>
+        <li>A/B testing & optimization</li>
+        <li>Ongoing adjustments for growth</li>
+      </ul>
+      <div class="big-number">03</div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section id="cases" class="cases-section">
+  <div class="section-label reveal">Proven Results</div>
+  <h2 class="section-title reveal">Case<br><span class="outline">Studies</span></h2>
+  <div class="cases-grid">
+
+    <!-- E-Commerce & Supplements -->
+    <div class="case-card reveal reveal-delay-1">
+      <div class="case-illustration" style="background: linear-gradient(135deg, #0f1a00 0%, #1a2e00 100%);">
+        <svg width="220" height="180" viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Bar chart numeric illustration -->
+          <rect x="20" y="120" width="28" height="40" fill="rgba(204,255,0,0.15)" rx="2"/>
+          <rect x="56" y="90" width="28" height="70" fill="rgba(204,255,0,0.25)" rx="2"/>
+          <rect x="92" y="60" width="28" height="100" fill="rgba(204,255,0,0.4)" rx="2"/>
+          <rect x="128" y="30" width="28" height="130" fill="#CCFF00" rx="2"/>
+          <!-- Arrow up -->
+          <path d="M172 100 L172 30 L192 30" stroke="rgba(204,255,0,0.4)" stroke-width="1.5" fill="none" stroke-dasharray="4 3"/>
+          <polygon points="186,22 198,30 186,38" fill="rgba(204,255,0,0.5)"/>
+          <!-- +3x label -->
+          <text x="156" y="20" font-family="'Syne'" font-weight="800" font-size="28" fill="#CCFF00" opacity="0.9">×3</text>
+          <!-- percentage labels -->
+          <text x="24" y="114" font-family="monospace" font-size="8" fill="rgba(204,255,0,0.5)">Q1</text>
+          <text x="60" y="84" font-family="monospace" font-size="8" fill="rgba(204,255,0,0.5)">Q2</text>
+          <text x="96" y="54" font-family="monospace" font-size="8" fill="rgba(204,255,0,0.5)">Q3</text>
+          <text x="132" y="24" font-family="monospace" font-size="8" fill="#CCFF00">Q4</text>
+          <!-- baseline -->
+          <line x1="10" y1="162" x2="210" y2="162" stroke="rgba(204,255,0,0.1)" stroke-width="1"/>
+          <!-- 60% badge -->
+          <rect x="60" y="6" width="60" height="20" rx="2" fill="rgba(204,255,0,0.1)" stroke="rgba(204,255,0,0.2)" stroke-width="0.5"/>
+          <text x="66" y="19" font-family="'Syne'" font-weight="700" font-size="10" fill="#CCFF00">+60% CVR</text>
+        </svg>
+      </div>
+      <div class="case-body">
+        <div class="case-tag">E-Commerce &amp; Supplements</div>
+        <h3 class="case-title">Supplement Brand Growth</h3>
+        <div class="case-metrics">
+          <div>
+            <div class="case-metric-val">+60%</div>
+            <div class="case-metric-label">Conversion Rate</div>
+          </div>
+          <div>
+            <div class="case-metric-val">3x</div>
+            <div class="case-metric-label">ROAS</div>
+          </div>
+        </div>
+        <div class="case-spend">AD SPEND — $85,000</div>
+      </div>
+    </div>
+
+    <!-- iGaming -->
+    <div class="case-card reveal reveal-delay-2">
+      <div class="case-illustration" style="background: linear-gradient(135deg, #0a0014 0%, #1a0030 100%);">
+        <svg width="220" height="180" viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Funnel-style player acquisition -->
+          <path d="M30 30 L190 30 L160 80 L60 80 Z" fill="rgba(204,255,0,0.08)" stroke="rgba(204,255,0,0.2)" stroke-width="1"/>
+          <path d="M60 80 L160 80 L140 120 L80 120 Z" fill="rgba(204,255,0,0.14)" stroke="rgba(204,255,0,0.3)" stroke-width="1"/>
+          <path d="M80 120 L140 120 L125 158 L95 158 Z" fill="rgba(204,255,0,0.22)" stroke="#CCFF00" stroke-width="1.5"/>
+          <!-- Labels -->
+          <text x="90" y="56" font-family="monospace" font-size="9" fill="rgba(204,255,0,0.5)">VISITORS</text>
+          <text x="90" y="102" font-family="monospace" font-size="9" fill="rgba(204,255,0,0.7)">SIGNUPS</text>
+          <text x="97" y="142" font-family="'Syne'" font-weight="700" font-size="10" fill="#CCFF00">PLAYERS</text>
+          <!-- 285 big -->
+          <text x="148" y="72" font-family="'Syne'" font-weight="800" font-size="40" fill="rgba(204,255,0,0.12)">285</text>
+          <!-- 70% RD badge -->
+          <rect x="4" y="140" width="56" height="22" rx="2" fill="rgba(204,255,0,0.08)" stroke="rgba(204,255,0,0.25)" stroke-width="0.5"/>
+          <text x="10" y="154" font-family="'Syne'" font-weight="700" font-size="10" fill="#CCFF00">70% RD</text>
+          <!-- dot grid -->
+          <circle cx="185" cy="140" r="2" fill="rgba(204,255,0,0.3)"/>
+          <circle cx="195" cy="140" r="2" fill="rgba(204,255,0,0.3)"/>
+          <circle cx="205" cy="140" r="2" fill="rgba(204,255,0,0.3)"/>
+          <circle cx="185" cy="150" r="2" fill="rgba(204,255,0,0.15)"/>
+          <circle cx="195" cy="150" r="2" fill="rgba(204,255,0,0.15)"/>
+          <circle cx="205" cy="150" r="2" fill="rgba(204,255,0,0.15)"/>
+        </svg>
+      </div>
+      <div class="case-body">
+        <div class="case-tag">iGaming</div>
+        <h3 class="case-title">Player Acquisition Campaign</h3>
+        <div class="case-metrics">
+          <div>
+            <div class="case-metric-val">+285</div>
+            <div class="case-metric-label">New Players</div>
+          </div>
+          <div>
+            <div class="case-metric-val">70%</div>
+            <div class="case-metric-label">Retention (RD)</div>
+          </div>
+        </div>
+        <div class="case-spend">AD SPEND — $65,000</div>
+      </div>
+    </div>
+
+    <!-- Crypto & Finance -->
+    <div class="case-card reveal reveal-delay-3">
+      <div class="case-illustration" style="background: linear-gradient(135deg, #001409 0%, #002818 100%);">
+        <svg width="220" height="180" viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Line chart — crypto growth -->
+          <polyline points="10,140 40,130 70,115 90,105 110,85 130,65 155,45 180,30 200,20" stroke="#CCFF00" stroke-width="2" fill="none"/>
+          <!-- Area fill -->
+          <polygon points="10,140 40,130 70,115 90,105 110,85 130,65 155,45 180,30 200,20 200,160 10,160" fill="rgba(204,255,0,0.06)"/>
+          <!-- Grid lines -->
+          <line x1="10" y1="160" x2="210" y2="160" stroke="rgba(204,255,0,0.08)" stroke-width="0.5"/>
+          <line x1="10" y1="120" x2="210" y2="120" stroke="rgba(204,255,0,0.08)" stroke-width="0.5"/>
+          <line x1="10" y1="80" x2="210" y2="80" stroke="rgba(204,255,0,0.08)" stroke-width="0.5"/>
+          <line x1="10" y1="40" x2="210" y2="40" stroke="rgba(204,255,0,0.08)" stroke-width="0.5"/>
+          <!-- Dots -->
+          <circle cx="200" cy="20" r="4" fill="#CCFF00"/>
+          <circle cx="200" cy="20" r="8" fill="rgba(204,255,0,0.2)"/>
+          <!-- 1000/day label -->
+          <rect x="130" y="70" width="76" height="22" rx="2" fill="rgba(204,255,0,0.1)" stroke="rgba(204,255,0,0.3)" stroke-width="0.5"/>
+          <text x="136" y="84" font-family="'Syne'" font-weight="700" font-size="10" fill="#CCFF00">1000/day</text>
+          <!-- <$1 badge -->
+          <rect x="4" y="8" width="56" height="22" rx="2" fill="rgba(204,255,0,0.08)" stroke="rgba(204,255,0,0.25)" stroke-width="0.5"/>
+          <text x="10" y="22" font-family="'Syne'" font-weight="700" font-size="10" fill="#CCFF00">&lt;$1/user</text>
+          <!-- +30% badge -->
+          <text x="8" y="110" font-family="'Syne'" font-weight="800" font-size="24" fill="rgba(204,255,0,0.1)">+30%</text>
+        </svg>
+      </div>
+      <div class="case-body">
+        <div class="case-tag">Crypto &amp; Financial Services</div>
+        <h3 class="case-title">User Acquisition at Scale</h3>
+        <div class="case-metrics">
+          <div>
+            <div class="case-metric-val">1K+</div>
+            <div class="case-metric-label">Users / Day</div>
+          </div>
+          <div>
+            <div class="case-metric-val">+30%</div>
+            <div class="case-metric-label">Min. Deposit</div>
+          </div>
+        </div>
+        <div class="case-spend">AD SPEND — $48,000 · &lt;$1 per user</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-label reveal">What We Do</div>
+  <h2 class="section-title reveal">Our<br><span class="outline">Services</span></h2>
+  <div class="services-grid reveal">
+    <div class="service-chip xl">Social &amp; Paid Media</div>
+    <div class="service-chip large">SEO</div>
+    <div class="service-chip large">Social Media Marketing</div>
+    <div class="service-chip xl">Website Enhancement</div>
+    <div class="service-chip">Google Analytics</div>
+    <div class="service-chip">Content Writing</div>
+    <div class="service-chip large">Email Marketing</div>
+    <div class="service-chip xl">Ad Targeting</div>
+    <div class="service-chip large">Performance Creative</div>
+    <div class="service-chip">CRO &amp; A/B Testing</div>
+    <div class="service-chip">Marketing Automation</div>
+  </div>
+</section>
+
+<!-- TRUSTED -->
+<section id="about" class="trusted-section">
+  <div class="trusted-intro">
+    <div>
+      <div class="section-label reveal">Clients</div>
+      <h2 class="section-title reveal" style="margin-bottom: 0;">Trusted By<br><span class="outline">Businesses</span></h2>
+    </div>
+    <div class="reveal">
+      <div class="trusted-badge">10 years of client trust</div>
+      <p class="trusted-text">From scrappy startups to established brands — we've helped businesses across e-commerce, finance, gaming, and beyond achieve breakthrough growth.</p>
+    </div>
+  </div>
+  <div class="trusted-grid reveal">
+    <div class="trusted-item"><div class="trusted-logo">BetaShop<br><span style="font-size:9px;letter-spacing:0.15em;font-weight:400;">E-COMMERCE</span></div></div>
+    <div class="trusted-item"><div class="trusted-logo">NovaCoin<br><span style="font-size:9px;letter-spacing:0.15em;font-weight:400;">CRYPTO</span></div></div>
+    <div class="trusted-item"><div class="trusted-logo">PlayZone<br><span style="font-size:9px;letter-spacing:0.15em;font-weight:400;">IGAMING</span></div></div>
+    <div class="trusted-item"><div class="trusted-logo">SupraFit<br><span style="font-size:9px;letter-spacing:0.15em;font-weight:400;">SUPPLEMENTS</span></div></div>
+    <div class="trusted-item"><div class="trusted-logo">TradeArc<br><span style="font-size:9px;letter-spacing:0.15em;font-weight:400;">FINANCE</span></div></div>
+    <div class="trusted-item"><div class="trusted-logo">MegaSpin<br><span style="font-size:9px;letter-spacing:0.15em;font-weight:400;">CASINO</span></div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-left">
+    <h2>Ready<br>to <span class="outline">Grow</span>?</h2>
+  </div>
+  <div class="cta-right">
+    <p class="cta-desc">Let's talk about your business goals. We'll build a custom strategy that delivers measurable ROI.</p>
+    <button class="btn-primary">Book a Free Strategy Call →</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">CHI<span>.</span>CHA</div>
+      <div class="footer-tagline">Digital Marketing Agency · Est. 2014</div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Paid Media</a></li>
+          <li><a href="#">SEO</a></li>
+          <li><a href="#">Social Media</a></li>
+          <li><a href="#">Analytics</a></li>
+          <li><a href="#">Content</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Industries</h4>
+        <ul>
+          <li><a href="#">E-Commerce</a></li>
+          <li><a href="#">iGaming</a></li>
+          <li><a href="#">Crypto & Finance</a></li>
+          <li><a href="#">SaaS</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Cases</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2024 CHICHA Agency. All rights reserved.</div>
+    <a href="mailto:hello@chicha.agency" class="footer-email">hello@chicha.agency</a>
+  </div>
+</footer>
+
+<script>
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animCursor() {
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animCursor);
+  }
+  animCursor();
+  document.querySelectorAll('a, button, .case-card, .service-chip, .process-card, .trusted-item').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('expand'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('expand'));
+  });
+
+  // SCROLL REVEAL
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // COUNTER ANIMATION
+  function animateCounter(el, target, suffix) {
+    let start = 0;
+    const duration = 1800;
+    const startTime = performance.now();
+    function update(now) {
+      const p = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const val = Math.round(eased * target);
+      el.textContent = (val >= 1000 ? (val/1000).toFixed(0) + 'K' : val) + suffix;
+      if (p < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  // Observe stats
+  const statsEl = document.querySelector('.hero-stats');
+  if (statsEl) {
+    let fired = false;
+    const statObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !fired) {
+          fired = true;
+          // counters are already in HTML, just animate on load
+        }
+      });
+    });
+    statObs.observe(statsEl);
+  }
+</script>
+</body>
+</html>
